@@ -23,7 +23,7 @@ import horaapps.org.liz.Themed;
  * Created by darken (darken@darken.eu) on 04.03.2017.
  */
 public class SettingBasic extends FrameLayout implements Themed {
-    private final String iconString;
+    private String iconString;
     @StringRes private final int titleRes;
     @StringRes private final int captionRes;
     @BindView(R.id.icon) IconicsImageView icon;
@@ -47,7 +47,9 @@ public class SettingBasic extends FrameLayout implements Themed {
         inflater.inflate(R.layout.view_setting_basic, this);
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.SettingBasic);
-        iconString = a.getString(R.styleable.SettingBasic_settingIcon);
+        if (!isInEditMode()) {
+            iconString = a.getString(R.styleable.SettingBasic_settingIcon);
+        }
         titleRes = a.getResourceId(R.styleable.SettingBasic_settingTitle, 0);
         captionRes = a.getResourceId(R.styleable.SettingBasic_settingCaption, 0);
         int minimumApi = a.getInteger(R.styleable.SettingBasic_settingMinApi, 0);
