@@ -27,7 +27,7 @@ import horaapps.org.liz.ThemedActivity;
  * Created by darken (darken@darken.eu) on 04.03.2017.
  */
 public class SettingWithSwitchView extends FrameLayout implements View.OnClickListener, Themed {
-    private final String iconString;
+    private String iconString;
     private final String preferenceKey;
     @StringRes private final int titleRes;
     @StringRes private final int captionRes;
@@ -55,7 +55,9 @@ public class SettingWithSwitchView extends FrameLayout implements View.OnClickLi
         inflater.inflate(R.layout.view_setting_switch, this);
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.SettingWithSwitchView);
-        iconString = a.getString(R.styleable.SettingWithSwitchView_settingIcon);
+        if (!isInEditMode()) {
+            iconString = a.getString(R.styleable.SettingWithSwitchView_settingIcon);
+        }
         final int prefKeyRes = a.getResourceId(R.styleable.SettingWithSwitchView_settingPreferenceKey, 0);
         if (prefKeyRes == 0) throw new IllegalArgumentException("Invalid preference reference");
         preferenceKey = getResources().getString(prefKeyRes);
